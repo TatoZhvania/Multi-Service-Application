@@ -162,5 +162,3 @@ docker logs node-app
     });
     ```
     
-
-ფასფ
