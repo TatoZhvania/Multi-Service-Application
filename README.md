@@ -100,3 +100,56 @@ docker logs node-app
 ```
 
 ამ ბრძანების შემდეგ ტერმინალში უნდა დავინახოთ “App is running on [http://localhost:3000](http://localhost:3000/)”
+
+
+### **`app.js`** ფაილის მოკლე აღწერა
+
+---
+
+1. მოდულების იმპორტი:
+    - Express.js: ვებ-სერვერის ასაწყობად.
+    - MongoClient: MongoDB ბაზასთან დასაკავშირებლად.
+    
+    ```jsx
+    const express = require('express');
+    const { MongoClient } = require('mongodb');
+    ```
+    
+2. სერვერის კონფიგურაცია:
+    - აპლიკაცია მუშაობს 3000 პორტზე.
+    - MongoDB-ის URL და ბაზის სახელი განსაზღვრულია.
+    
+    ```jsx
+    const app = express();
+    const port = 3000;
+    
+    const url = 'mongodb://db:27017';
+    const dbName = 'testdb';
+    ```
+    
+3. MongoDB კავშირი და მონაცემების ჩაწერა/მოხსნა:
+    - `client.connect()`: აპლიკაცია უკავშირდება MongoDB სერვისს.
+    - კოლექციაში (`test`) ინსერტირდება ახალი დოკუმენტი.
+    - `findOne({}, { sort: { _id: -1 } })`: მოაქვს ბოლო დოკუმენტი კოლექციიდან.
+    
+    ```jsx
+    await collection.insertOne({ message: 'Hello, it is working!!!!' });
+    const result = await collection.findOne({}, { sort: { _id: -1 } });
+    ```
+    
+4. რაუტი `/`:
+    - მთავარ გვერდზე სერვერი პასუხობს MongoDB-დან წამოღებული შეტყობინებით.
+    
+    ```jsx
+    res.send(`Connected to MongoDB! Message: ${result.message}`);
+    ```
+    
+5. სერვერის გაშვება:
+    - აპლიკაცია ეშვება 3000 პორტზე და კონსოლში ბეჭდავს, რომ სერვერი გაშვებულია.
+    
+    ```jsx
+    app.listen(port, () => {
+      console.log(`App is running on http://localhost:${port}`);
+    });
+    ```
+    
