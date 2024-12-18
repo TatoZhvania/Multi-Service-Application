@@ -1,3 +1,5 @@
+VERCEL_URL - https://node-app-github.vercel.app/
+
 პროექტში შევქმენი docker-compose.yml ფაილი, რომელიც განსაზღვრავს ორ სერვისს:
 
 1. Node.js აპლიკაცია (app)
